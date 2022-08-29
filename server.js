@@ -1,16 +1,14 @@
 const express = require('express'); //import the express
-
+const cors = require('cors');
 const server = express();  //taking all the express method
-
-
 const weatherData = require('./data/weather.json');
-
+server.use(cors()); //tp make server open for any request
 
 //local ip address 
 //port 
 
 
-const PORT = 3002;
+const PORT = 3015;
 
 // http://localhost:3000/
 server.get('/', (req,res) => {
@@ -25,8 +23,8 @@ server.get('/test',(req,res) => {
 });
 
 
-// http://localhost:3000/weather
-server.get('/weather',(req,res) => {
+// http://localhost:3000/allWeather
+server.get('/allWeather',(req,res) => {
     // let wData= weatherData.map( item => {
     //     item.city_name, weatherData[0].lat,weatherData[0].lon, weatherData[0].data
         
@@ -34,6 +32,22 @@ server.get('/weather',(req,res) => {
     // }
     // )
     res.send(weatherData);
+})
+
+// http://localhost:3000/weather?name=cityName&&lat=latitude&&lon=longitude`;
+server.get('/weather',(req,res) => {
+    console.log(req.query);
+    console.log(req.query.name);
+
+    const result = weatherData.find( (item) => {
+        if(item.city_name === req.query.name && item.lat === req.query.lat && item.lon === req.query.lon){
+            return item;
+        }
+    })
+
+    console.log(result) //to show in the server in the termenal
+
+    res.send(result); //to show in the web as a console in the browser
 })
 
 
