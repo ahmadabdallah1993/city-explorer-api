@@ -8,7 +8,7 @@ server.use(cors()); //tp make server open for any request
 //port 
 
 
-const PORT = 3015;
+const PORT = 3020; //process.env.PORT;
 
 // http://localhost:3000/
 server.get('/', (req,res) => {

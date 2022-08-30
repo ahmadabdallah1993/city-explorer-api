@@ -22,7 +22,7 @@ class Weather extends React.Component {
         const lat = event.target.lat.value;
         const lon = event.target.lon.value;
 
-        const url = `http://localhost:3015/weather?name=${city}&&lat=${lat}&&lon=${lon}`;
+        const url = `http://localhost:3020/weather?name=${city}&&lat=${lat}&&lon=${lon}`;
         // const url = `http://localhost:3015/weather`;
 
         // const result = await axios.get(url);
@@ -40,7 +40,6 @@ class Weather extends React.Component {
         this.setState({
             discription: r2,
             date: r3,
-            err:false
         })
         
     }
