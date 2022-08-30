@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Weather extends React.Component {
 
@@ -8,7 +10,8 @@ class Weather extends React.Component {
         super(props);
         this.state = {
             discription: "",
-            date: ""
+            date: "",
+            err: false
         }
     }
 
@@ -36,12 +39,16 @@ class Weather extends React.Component {
 
         this.setState({
             discription: r2,
-            date: r3
+            date: r3,
+            err:false
         })
+        
     }
     catch
     {
-
+        this.setState({
+            err:true
+        })
     }
     
     
@@ -54,18 +61,36 @@ class Weather extends React.Component {
 
     render(){
         return(
-            <div>
-            <h1>Welcome to forcast website</h1>
 
-            <form onSubmit={this.getData}>
-                <input type='text' name='cityName' placeholder='enter city name ...'/>
-                <input type='text' name='lat' placeholder='enter the latitude ...'/>
-                <input type='text' name='lon' placeholder='enter the longitude ...'/>
-                <button type='submit'>Get Data</button>
-            </form>
-            <p>Description:{this.state.discription}</p>
-            <p>Valid date: {this.state.date}</p>
-            </div>
+<>
+      <Form onSubmit={this.getData}>
+
+      <Form.Group className="mb-3" controlId="formBasicCityName">
+        <Form.Label>City Name</Form.Label>
+        <Form.Control type="text" name='cityName' placeholder='enter city name ...' />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicLat">
+        <Form.Label>latitude</Form.Label>
+        <Form.Control type='text' name='lat' placeholder='enter the latitude ...' />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicLon">
+        <Form.Label>longitude</Form.Label>
+        <Form.Control type='text' name='lon' placeholder='enter the longitude ...'/>
+      </Form.Group>
+
+      <Button variant="primary" type="submit">
+        Forcast
+      </Button>
+
+      <br></br>
+    </Form>
+    <p>Description: {this.state.discription}</p>
+    <p>Date: {this.state.date}</p>
+    {this.state.err && <p>"error": "Something went wrong."</p>}
+    </>
+
         )
     }
 }

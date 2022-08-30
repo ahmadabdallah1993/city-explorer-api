@@ -50,6 +50,10 @@ server.get('/weather',(req,res) => {
     res.send(result); //to show in the web as a console in the browser
 })
 
+server.get('*',(req,res) => {
+    res.send('"404  error": "Something went wrong."');
+})
+
 
 server.listen(PORT, () => {
     console.log(`hello i am listening on this ${PORT}`);
