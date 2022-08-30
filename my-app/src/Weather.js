@@ -4,6 +4,14 @@ import axios from 'axios';
 
 class Weather extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            discription: "",
+            date: ""
+        }
+    }
+
 
     getData = async (event) => {
         event.preventDefault();
@@ -13,11 +21,23 @@ class Weather extends React.Component {
 
         const url = `http://localhost:3015/weather?name=${city}&&lat=${lat}&&lon=${lon}`;
         // const url = `http://localhost:3015/weather`;
+
+        // const result = await axios.get(url);
+        // console.log(result);
     
     try
     {
         const result = await axios.get(url);
-        console.log(result);
+        // const r2 = JSON.stringify(result)
+        const r2 = JSON.stringify(result.data.data[0])
+        const r3 = JSON.stringify(result.data.data[0].valid_date)
+       
+        console.log(r2);
+
+        this.setState({
+            discription: r2,
+            date: r3
+        })
     }
     catch
     {
@@ -43,6 +63,8 @@ class Weather extends React.Component {
                 <input type='text' name='lon' placeholder='enter the longitude ...'/>
                 <button type='submit'>Get Data</button>
             </form>
+            <p>Description:{this.state.discription}</p>
+            <p>Valid date: {this.state.date}</p>
             </div>
         )
     }
